@@ -1,7 +1,7 @@
 
 K.Plugin({
 	name: 'wunderground',
-	placeholders: {
+	templates: {
 		panelPlace: 'panelPlace_weather'
 	},
 	settings: {
