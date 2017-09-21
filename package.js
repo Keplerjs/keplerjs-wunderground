@@ -2,7 +2,7 @@
 Package.describe({
   name: 'keplerjs:wunderground',
   summary: 'keplerjs plugin for wunderground API',
-  version: "1.2.4",
+  version: "1.2.5",
   git: "https://github.com/Keplerjs/Kepler.git"
 });
 
