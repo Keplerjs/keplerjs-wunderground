@@ -8,7 +8,7 @@ var	getOpts = {
 
 var weatherAPI = function(ll) {
 
-	var url = _.template("http://api.wunderground.com/api/{key}/forecast/q/{lat},{lon}.json", {
+	var url = K.Util.tmpl("http://api.wunderground.com/api/{key}/forecast/q/{lat},{lon}.json", {
 			key: K.settings.wunderground.key,
 			lat: ll[0], lon: ll[1]
 		});
