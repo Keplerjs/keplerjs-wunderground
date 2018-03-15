@@ -51,9 +51,8 @@ Meteor.methods({
 
 		ll = K.Util.geo.roundLoc(ll, 2);
 
-		var key = K.Util.timeHash('daily') +'_'+ ll.join('_'),
-			val = K.Cache.get(key, 'weather');
+		var val = K.Cache.get(ll, 'weather');
 
-		return val || K.Cache.set(key, weatherAPI(ll), 'weather');
+		return val || K.Cache.set(ll, weatherAPI(ll), 'weather', 'daily');
 	}
 });
