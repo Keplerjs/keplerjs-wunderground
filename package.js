@@ -1,18 +1,19 @@
+var version = '1.4.1';
+
 Package.describe({
-  version: "1.4.0",
+  version: version,
   name: 'keplerjs:wunderground',
   summary: 'keplerjs plugin for wunderground API',
   git: "https://github.com/Keplerjs/Kepler.git"
 });
 
 Package.onUse(function(api) {
-
-  api.versionsFrom("1.5.1");
-
   api.use([
-    'keplerjs:core@1.4.0',
+    'keplerjs:core@'+version,
   ]);
   
+  api.versionsFrom("1.5.1");
+
   api.addFiles([
     'plugin.js',
     'i18n/it.js',
