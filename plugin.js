@@ -2,7 +2,7 @@
 K.Plugin({
 	name: 'wunderground',
 	templates: {
-		panelPlace: 'panelPlace_weather'
+		tabPlace: 'tabPlace_weather'
 	},
 	settings: {
 		"wunderground": {

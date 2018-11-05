@@ -1,5 +1,5 @@
 
-Template.panelPlace_weather_forecast.onRendered(function() {
+Template.tabPlace_weather_forecast.onRendered(function() {
 
 	var days$ = this.$('.weather_day');
 
@@ -12,7 +12,7 @@ Template.panelPlace_weather_forecast.onRendered(function() {
 		.parent().css({width:'97%'});
 });
 
-Template.panelPlace_weather.events({
+Template.tabPlace_weather.events({
 	'click .place-btn-weather': function(e) {
 		e.preventDefault();		
 		this.loadWeather();
