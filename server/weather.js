@@ -16,7 +16,7 @@ var weatherAPI = function(ll) {
 	try {
 		res = HTTP.get(url, getOpts);
 	} catch(e) {
-		console.log('Weather: error',e);
+		console.log('Weather: error',url,e);
 		return null;
 	}
 
