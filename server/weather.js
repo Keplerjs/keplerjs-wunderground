@@ -49,7 +49,7 @@ var weatherAPI = function(ll) {
 Meteor.methods({
 	getWeatherByLoc: function(ll) {
 
-		ll = K.Util.geo.roundLoc(ll, 2);
+		ll = K.Util.geo.locRound(ll, 2);
 
 		var val = K.Cache.get(ll, 'weather');
 
