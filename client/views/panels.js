@@ -5,7 +5,10 @@ Template.tabPlace_weather_forecast.onRendered(function() {
 
 	days$.eq(1).show();
 
-	this.$('#slider_weather').slider({value: 1, tooltip:'hide'})
+	this.$('#slider_weather').slider({
+			value: 1,
+			tooltip:'hide'
+		})
 		.on('slide', function(e) {
 			days$.hide().eq(e.value).show();
 		})

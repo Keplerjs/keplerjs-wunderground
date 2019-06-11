@@ -2,13 +2,18 @@
 var	getOpts = {
 		timeout: 20000,	//timeout connessioni http remote
 		httpHeaders: {
+			'Accept-Encoding': 'gzip',
 			'User-Agent': ''
 		}
 	};
 
 var weatherAPI = function(ll) {
 
-	var url = K.Util.tmpl("http://api.wunderground.com/api/{key}/forecast/q/{lat},{lon}.json", {
+	var tmplUrl = "https://api.weather.com/v3/wx/forecast/daily/5day?"+
+				  "geocode={lat},{lon}&format=json&"+
+				  "units=m&language=en-US&"+
+				  "apiKey={key}",
+		url = K.Util.tmpl(tmplUrl, {
 			key: K.settings.wunderground.key,
 			lat: ll[0], lon: ll[1]
 		});
@@ -20,27 +25,27 @@ var weatherAPI = function(ll) {
 		return null;
 	}
 
-	if(res && res.statusCode == 200 && res.data && res.data.forecast)
+	if(res && res.statusCode == 200 && res.data)
 	{
-		return _.map(res.data.forecast.simpleforecast.forecastday, function(day) {
-			
+		let day = res.data.daypart[0];
+		let ret = _.map(res.data.validTimeUtc, function(dateUtc, kd) {
+			let k = kd*2;
 			return {
-				//today: day.period==1 || day.period==0,
-				date:  day.date.year+'-'+day.date.month+'-'+day.date.day,
-				//TODO EJSON Date
+				date:  dateUtc,
 				temp:  {
-					min: day.low.celsius,
-					max: day.high.celsius
+					min: day['temperatureWindChill'][k],
+					max: day['temperatureHeatIndex'][k]
 				},
 				wind: {
-					vel: parseFloat(day.avewind.kph),
-					ang: parseFloat(day.avewind.degrees)
+					vel: day['windSpeed'][k],
+					ang: day['windDirection'][k]
 				},
-				prob: parseFloat(day.pop),
-				humid: parseFloat(day.avehumidity),
-				icon: day.icon
+				prob: day['precipChance'][k],
+				humid: day['relativeHumidity'][k],
+				iconCode: day['iconCode'][k]
 			};
 		});
+		return ret;
 	}
 	else
 		return null;
@@ -51,8 +56,8 @@ Meteor.methods({
 
 		ll = K.Util.geo.locRound(ll, 2);
 
-		var val = K.Cache.get(ll, 'weather');
-
-		return val || K.Cache.set(ll, weatherAPI(ll), 'weather', 'daily');
+		return K.Cache.get(ll, 'weather', function(loc) {
+			return weatherAPI(loc);
+		}, K.settings.wunderground.cacheTime);
 	}
 });
