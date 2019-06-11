@@ -22,6 +22,7 @@ https://www.wunderground.com/weather/api/d/docs?d=resources/icon-sets
 *Settings.json*
 ```
 "wunderground": {
+	"cacheTime": "daily",
     "key": "<KEY>"
 }
 ```

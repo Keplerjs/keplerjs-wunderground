@@ -20,6 +20,7 @@ var weatherAPI = function(ll) {
 
 	try {
 		res = HTTP.get(url, getOpts);
+		console.log(url)
 	} catch(e) {
 		console.log('Weather: error',url,e);
 		return null;
@@ -28,22 +29,26 @@ var weatherAPI = function(ll) {
 	if(res && res.statusCode == 200 && res.data)
 	{
 		let day = res.data.daypart[0];
-		let ret = _.map(res.data.validTimeUtc, function(dateUtc, kd) {
-			let k = kd*2;
-			return {
-				date:  dateUtc,
-				temp:  {
-					min: day['temperatureWindChill'][k],
-					max: day['temperatureHeatIndex'][k]
-				},
-				wind: {
-					vel: day['windSpeed'][k],
-					ang: day['windDirection'][k]
-				},
-				prob: day['precipChance'][k],
-				humid: day['relativeHumidity'][k],
-				iconCode: day['iconCode'][k]
-			};
+		let ret = [];
+
+		_.each(day['daypartName'], function(dayName, k) {
+			if(dayName) {
+				ret.push({
+					dayName: dayName,
+					date: res.data.validTimeUtc[parseInt(k/2)],
+					temp:  {
+						min: day['temperatureWindChill'][k],
+						max: day['temperatureHeatIndex'][k]
+					},
+					wind: {
+						vel: day['windSpeed'][k],
+						ang: day['windDirection'][k]
+					},
+					prob: day['precipChance'][k],
+					humid: day['relativeHumidity'][k],
+					iconCode: day['iconCode'][k]
+				});
+			}
 		});
 		return ret;
 	}
