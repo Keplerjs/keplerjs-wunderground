@@ -2,7 +2,7 @@
 K.Plugin({
 	name: 'wunderground',
 	templates: {
-		tabPlace: {'tabPlace_weather':{order:-10}}
+		tabPlace: {'tabPlace_weather':{order:0}}
 	},
 	settings: {
 		"public": {

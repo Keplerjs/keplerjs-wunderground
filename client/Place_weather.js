@@ -37,7 +37,7 @@ Kepler.Place.include({
 				let localRes = self.formatWeather(res);
 
 				self.weather = localRes;//K.Cache.set(self.loc, localRes, 'weather');
-				console.log(self.weather)
+				//console.log(self.weather)
 				self._dep.changed();
 			});
 	},
