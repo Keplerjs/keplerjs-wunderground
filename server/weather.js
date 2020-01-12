@@ -1,7 +1,7 @@
 
 var	getOpts = {
 		timeout: 20000,	//timeout connessioni http remote
-		httpHeaders: {
+		headers: {
 			'Accept-Encoding': 'gzip',
 			'User-Agent': ''
 		}
